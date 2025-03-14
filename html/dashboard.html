@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bioRed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="../css/css.css">
+</head>
+<body class="b">
+
+    <!-- Sidebar -->
+    <body class="b">
+        <!-- Sidebar -->
+        <div class="c fixed w-64 h-full shadow-lg z-50">
+            <div class="flex items-center justify-center space-x-3 mt-5">
+                <div class="flex items-center space-x-3">
+                    <h1 class="j text-xl font-bold text-black-800">bio red</h1>
+                </div>
+            </div>
+            <nav class="mt-6 ">
+                <div class="px-6 space-y-2">
+                    <a href="dashboard.html" class="d flex items-center p-3 space-x-3 rounded-lg  text-black-600">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="produits.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-box"></i>
+                        <span>Produits</span>
+                    </a> 
+                    <a href="categories.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fa-solid fa-list"></i>
+                        <span>categories</span>
+                    </a>
+                  
+                    <a href="fournisseur.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>Fournisseur</span>
+                    </a> 
+                      <a href="statistic.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <button onclick="handleLogout()" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-sign-out-alt mr-2"></i><span>Déconnexion</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+  <!-- Main Content -->
+  <div class="ml-64 p-8">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-white">Tableau de bord</h1>
+            <p class="text-white">Bienvenue dans votre espace administrateur</p>
+        </div>
+        <div class="flex items-center space-x-4">
+        
+            <div class="relative">
+                <img src="../imageprofile3.jpg" alt="Profile" class="rounded-full cursor-pointer">
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="e p-6 rounded-xl shadow-sm hover-scale transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-box text-blue-600 text-xl"></i>
+                </div>
+                <span class="text-sm text-black-500">Produits</span>
+            </div>
+            <h3 class="text-2xl font-bold text-black-800" id="totalProducts">0</h3>
+            <p class="text-green-500 text-sm mt-2">
+                <i class="fas fa-arrow-up"></i>
+                <span>12% ce mois</span>
+            </p>
+        </div>
+        <div class="e p-6 rounded-xl shadow-sm hover-scale transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-tags text-purple-600 text-xl"></i>
+                </div>
+                <span class="text-sm text-black-500">Catégories</span>
+            </div>
+            <h3 class="text-2xl font-bold text-black-800" id="totalCategories">0</h3>
+            <p class="text-purple-500 text-sm mt-2">
+                <i class="fas fa-circle"></i>
+                <span>Stable</span>
+            </p>
+        </div>
+        <div class="e p-6 rounded-xl shadow-sm hover-scale transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                </div>
+                <span class="text-sm text-black-500">Prix Moyen</span>
+            </div>
+            <h3 class="text-2xl font-bold text-black-800" id="averagePrice">0 Dhs</h3>
+            <p class="text-green-500 text-sm mt-2">
+                <i class="fas fa-arrow-up"></i>
+                <span>5% ce mois</span>
+            </p>
+        </div>
+        <div class="e p-6 rounded-xl shadow-sm hover-scale transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-eye text-red-600 text-xl"></i>
+                </div>
+                <span class="text-sm text-black-500">Vues</span>
+            </div>
+            <h3 class="text-2xl font-bold text-black-800">1,234</h3>
+            <p class="text-red-500 text-sm mt-2">
+                <i class="fas fa-arrow-down"></i>
+                <span>3% ce mois</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="e p-6 rounded-xl shadow-sm">
+            <h3 class="text-lg font-semibold text-black-800 mb-4">Ventes par Catégorie</h3>
+            <canvas id="graphCate" height="200"></canvas>
+        </div>
+        <div class="e p-6 rounded-xl shadow-sm">
+            <h3 class="text-lg font-semibold text-black-800 mb-4">Tendance des Ventes</h3>
+            <canvas id="ventegraph" height="200"></canvas>
+        </div>
+    </div>
+   
+</div>
+
+<script src="../js/dashboard.js"></script>
+<script src="../js/cards.js"></script>
+
+</body></html>

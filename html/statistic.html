@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bioRed - Statistiques</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="../css/css.css">
+</head>
+<body class="b">
+    <!-- Sidebar -->
+    <body class="b">
+        <!-- Sidebar -->
+        <div class="c fixed w-64 h-full shadow-lg z-50">
+            <div class="flex items-center justify-center space-x-3 mt-5">
+                <div class="flex items-center space-x-3">
+                    <h1 class="J text-xl font-bold text-black-800">bio red</h1>
+                </div>
+            </div>
+            <nav class="mt-6 ">
+                <div class="px-6 space-y-2">
+                    <a href="dashboard.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="produits.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-box"></i>
+                        <span>Produits</span>
+                    </a> 
+                    <a href="categories.html" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fa-solid fa-list"></i>
+                        <span>categories</span>
+                    </a>
+                  
+                    <a href="fournisseur.html" class="a flex items-center p-3 space-x-3 rounded-lg ">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>Fournisseur</span>
+                    </a> 
+                      <a href="statistic.html" class="d flex items-center p-3 space-x-3 rounded-lg  ">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistiques</span>
+                    </a>
+                    <button onclick="handleLogout()" class="a flex items-center p-3 space-x-3 rounded-lg">
+                        <i class="fas fa-sign-out-alt mr-2"></i><span>Déconnexion</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-white">Statistiques</h1>
+                <p class="text-white">Analyse approfondie des données</p>
+            </div>
+           
+        </header>
+
+        <div class="e rounded-xl shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-black-100">
+                <h2 class="text-xl font-semibold text-black-800">Vue d'ensemble</h2>
+                <p class="text-black-600 text-sm mt-1">Aperçu des tendances des produits et des fournisseurs.</p>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Courbe 1 : Produits, Fournisseurs et Catégories -->
+                    <div class="bg-black-100 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-black-800">Produits, Fournisseurs et Catégories</h3>
+                        <canvas id="chartProduits" class="mt-4"></canvas>
+                    </div>
+
+                    <!-- Courbe 2 : Comparaison de métriques -->
+                    <div class="bg-black-100 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-black-800">Comparaison Ventes et Satisfaction</h3>
+                        <canvas id="chartComparaison" class="mt-4"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Données pour Produits, Fournisseurs et Catégories
+        const produitsData = {
+            labels: ['Catégorie 1', 'Catégorie 2', 'Catégorie 3', 'Catégorie 4'],
+            datasets: [
+                {
+                    label: 'Nombre de Produits',
+                    data: [45, 60, 30, 25],
+                    borderColor: '#4F46E5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                },
+                {
+                    label: 'Nombre de Fournisseurs',
+                    data: [10, 15, 5, 8],
+                    borderColor: '#10B981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                }
+            ]
+        };
+
+        // Données pour la comparaison Ventes et Satisfaction
+        const comparaisonData = {
+            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai'],
+            datasets: [
+                {
+                    label: 'Ventes',
+                    data: [150, 200, 170, 220, 190],
+                    borderColor: '#6366F1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    yAxisID: 'y',
+                    tension: 0.4,
+                    fill: true,
+                },
+                {
+                    label: 'Satisfaction Client (%)',
+                    data: [80, 85, 83, 87, 90],
+                    borderColor: '#F59E0B',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    fill: true,
+                }
+            ]
+        };
+
+        // Initialisation des graphiques
+        window.onload = function() {
+            // Graphique Produits et Fournisseurs
+            const ctxProduits = document.getElementById('chartProduits').getContext('2d');
+            new Chart(ctxProduits, {
+                type: 'line',
+                data: produitsData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true },
+                        y: { beginAtZero: true, ticks: { stepSize: 10 } }
+                    }
+                }
+            });
+
+            // Graphique Comparaison Ventes et Satisfaction
+            const ctxComparaison = document.getElementById('chartComparaison').getContext('2d');
+            new Chart(ctxComparaison, {
+                type: 'line',
+                data: comparaisonData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            ticks: { beginAtZero: true, stepSize: 50 },
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            ticks: { beginAtZero: true, stepSize: 10 },
+                        },
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+        };
+        function handleLogout() {
+            const confirmation = confirm("Êtes-vous sûr de vouloir vous déconnecter ?");
+            if (confirmation) {
+                // Rediriger vers la page de connexion ou autre action
+                window.location.href = "compte.html";
+            }
+        }
+    </script>
+</body>
+</html>

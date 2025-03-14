@@ -1,0 +1,35 @@
+.b {
+    background-color: #32342d;; /* Marron clair, doux et chaleureux */
+}
+
+.c {
+    background-color: #495133; /* Marron moyen, équilibré */
+}
+
+.d {
+    background-color:  #9f9c62; /* Marron moyen, équilibré */
+    color: #32342d;/* Texte foncé pour un bon contraste */
+}
+
+.a {
+    color: #f3eaea; /* Texte sombre pour bonne lisibilité */
+}
+
+.a:hover {
+    background-color: #9f9c62;; /* Marron clair, doux */
+    color: #32342d; /* Changement de couleur de texte lors du survol */
+}
+
+.e {
+    background-color: #9f9c62; /* Beige lumineux pour les arrière-plans ou sections secondaires */
+}
+.j{
+    font-family: 'Georgia', serif; /* Style élégant et classique */
+    font-size: 20px; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    color: var(--deep-red); /* Rouge profond inspiré des olives */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère pour un effet 3D */
+    text-transform: uppercase; /* Mettre le texte en majuscules */
+    letter-spacing: 2px; /* Espacement entre les lettres */
+    line-height: 1.5; /* Hauteur de ligne pour une meilleure lisibilité */
+}
