@@ -57,11 +57,5 @@
         averagePrice();
         updateTotalCategories();
     });
-    function handleLogout() {
-        const confirmation = confirm("Êtes-vous sûr de vouloir vous déconnecter ?");
-        if (confirmation) {
-            // Rediriger vers la page de connexion ou autre action
-            window.location.href = "compte.html";
-        }
-    }
+ 
 
